@@ -795,17 +795,17 @@ public class Bicycle extends AbstractBike implements GeoEntity {
             }
         }
 
-        return 3F;
+        return 2.25F;
     }
 
     @Override
     public float getMaxTiltAngle() {
-        return (float) Math.toRadians(13F);
+        return (float) Math.toRadians(15F);
     }
 
     @Override
     public float getMaxSteeringAngle() {
-        return (float) Math.toRadians(45F);
+        return (float) Math.toRadians(65F);
     }
 
     @Override
@@ -815,11 +815,11 @@ public class Bicycle extends AbstractBike implements GeoEntity {
 
     @Override
     public float getMaxTurnRate() {
-        return (float) (Math.PI);
+        return (float) (Math.PI * 1.5);
     }
 
     public float getTurnScalingFactor() {
-        return 40.0F;
+        return 55.0F;
     }
 
     public float inertiaFactor() {
