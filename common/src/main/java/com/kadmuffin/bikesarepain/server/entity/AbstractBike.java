@@ -549,7 +549,7 @@ public abstract class AbstractBike extends AbstractHorse implements PlayerRideab
         return this.updateRotations(new Vec2(controllingPassenger.getXRot() * 0.5F, controllingPassenger.getYRot()));
     }
 
-    public void updateMovement(float sideways, float forward) {
+    private void updateMovement(float sideways, float forward) {
         float f = sideways * 0.5F;
         float g = forward;
         if (g <= 0.0F) {
@@ -678,11 +678,14 @@ public abstract class AbstractBike extends AbstractHorse implements PlayerRideab
                 }
             }
         } else {
-            float acceleration = (movSpeed - lastSpeed) * (1.15F - this.inertiaFactor());
-            movSpeed = lastSpeed + acceleration + gravityAcceleration;
+            // Exponential acceleration
+            float acceleration = (float) (Math.exp(0.3 * (movSpeed - lastSpeed)) - 1) * 0.08F; // Adjust the factor as needed
+            movSpeed = lastSpeed + acceleration; //+ gravityAcceleration;
         }
-        final float maxSpeed = this.level().getGameRules().getRule(GameRuleManager.MAX_BIKE_SPEED).get() / 20F;
+        final float maxSpeed = 200F / 20F;
+
         movSpeed = Math.clamp(movSpeed, -maxSpeed, maxSpeed);
+        System.out.println(movSpeed);
 
         rotation = movSpeed / this.getWheelRadius();
 
@@ -852,7 +855,7 @@ public abstract class AbstractBike extends AbstractHorse implements PlayerRideab
     }
 
     public float getTheoreticalMaxSpeed() {
-        return (this.getMaxPedalAnglePerSecond() / 20F) * this.getWheelRadius();
+        return (this.getMaxPedalAnglePerSecond() / 10F) * this.getWheelRadius();
     }
 
     public void actuallyHeal(float healAmount) {

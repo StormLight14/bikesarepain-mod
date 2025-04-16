@@ -795,7 +795,7 @@ public class Bicycle extends AbstractBike implements GeoEntity {
             }
         }
 
-        return 2.25F;
+        return 3F;
     }
 
     @Override
